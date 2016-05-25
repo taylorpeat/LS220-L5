@@ -1,0 +1,72 @@
+body {
+  font-family: Arial;
+  background-color: #B22222;
+}
+
+main {
+  width: 700px;
+  padding: 50px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+#container {
+  background: linear-gradient(white, blue);
+  height: 350px;
+  border: 1px solid gray;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+label {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input[type="number"] {
+  width: 80px;
+  height: 25px;
+  font-size: 16px;
+}
+
+.form-group:first-child {
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
+.coord label {
+  padding-bottom: 6px;
+}
+
+.circle,
+.square,
+.star {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+}
+
+.circle,
+.square {
+  background-color: #ffd700;
+}
+
+.circle {
+  border-radius: 15px;
+}
+
+.star {
+  background-image: url("images/star.png");
+  background-size: 30px;
+}
