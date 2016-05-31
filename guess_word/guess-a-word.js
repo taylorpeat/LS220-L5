@@ -9,10 +9,10 @@ Round.prototype = {
     var letter = String.fromCharCode(e.which),
         indicies;
 
-    if (this.invalidLetter(e.which)) { return }
+    if (this.invalidLetter(e.which)) { return; }
 
     indicies = this.findLetterIndicies(letter);
-    if (this.updateGuess(indicies, letter)) { this.checkIfRoundEnded() }
+    if (this.updateGuess(indicies, letter)) { this.checkIfRoundEnded(); }
   },
 
   invalidLetter: function(charCode) {
@@ -31,7 +31,7 @@ Round.prototype = {
 
   updateGuess: function(indicies, letter) {
     if (indicies[0] || indicies[0] === 0) {
-      if (this.correct_letters.includes(letter)) { return false }
+      if (this.correct_letters.includes(letter)) { return false; }
       this.updateRightGuess(indicies, letter);
     } else {
       this.updateWrongGuess(letter);
@@ -86,19 +86,19 @@ Round.prototype = {
     $("body").addClass("game_over");
     $("#images").prepend("<img src='images/tree_of_dead_hopes.png' id='dead_tree'>");
     $("#dead_tree").fadeIn(1000);
-    $("#apples").hide("explode", {pieces: 9}, 1000);
-    $("#tree").hide("explode", {pieces: 49}, 1000);
+    $("#apples").hide("explode", { pieces: 9 }, 1000);
+    $("#tree").hide("explode", { pieces: 49 }, 1000);
     $("a").hide();
     $(document).unbind();
   }
-}
+};
 
 function Round() {
   this.guesses = 0;
   this.correct_letters = [];
   this.word = getWord.call(this);
 
-  if (this.word === undefined) { this.gameOver(); return }
+  if (this.word === undefined) { this.gameOver(); return; }
 
   this.createBlanks();
 
@@ -106,7 +106,7 @@ function Round() {
 }
 
 function getWord() {
-  if (words[0] === undefined) { return }
+  if (words[0] === undefined) { return; }
   var idx = Math.floor(Math.random() * words.length);
   var new_word = words.splice(idx, 1)[0];
   return new_word;
