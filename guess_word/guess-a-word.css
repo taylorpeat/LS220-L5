@@ -7,10 +7,28 @@ main {
   background-color: #fff;
 }
 
-#tree {
-  margin: 0 auto 50px auto;
-  display: block;
+#images {
   height: 517px;
+}
+
+#tree,
+#dead_tree {
+  height: 517px;
+  position: absolute;
+}
+
+#tree {
+  display: block;
+  left: 80px;
+  top: 10px;
+  z-index: 2;
+}
+
+#dead_tree {
+  display: none;
+  left: 278px;
+  top: 45px;
+  z-index: 1;
 }
 
 p {
