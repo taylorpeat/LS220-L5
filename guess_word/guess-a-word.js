@@ -1,22 +1,20 @@
 var words = ["tidy", "pants", "slide", "hello"],
+    $p = $("p"),
     round;
 
 Round.prototype = {
   winningMessage: "Congratulations! You've guessed the word!!",
   losingMessage: "Sorry, you are out of guesses!",
+  max_guesses: 6,
 
   processGuess: function(e) {
     var letter = String.fromCharCode(e.which),
         indicies;
 
-    if (this.invalidLetter(e.which)) { return; }
+    if (invalidLetter(e.which)) { return; }
 
     indicies = this.findLetterIndicies(letter);
     if (this.updateGuess(indicies, letter)) { this.checkIfRoundEnded(); }
-  },
-
-  invalidLetter: function(charCode) {
-    return charCode > 122 || charCode < 97;
   },
 
   findLetterIndicies: function(letter) {
@@ -57,7 +55,7 @@ Round.prototype = {
   },
 
   checkIfRoundEnded: function() {
-    if (this.guesses === 6) {
+    if (this.guesses === this.max_guesses) {
       this.endRound(this.losingMessage, "lose");
     } else if (this.correct_letters.length === this.word.length) { 
       this.endRound(this.winningMessage, "win");
@@ -65,7 +63,7 @@ Round.prototype = {
   },
 
   endRound: function(message, result) {
-    $("p").eq(0).text(message);
+    $p.eq(0).text(message);
     $("body").addClass(result);
     $(document).unbind();
     $("a").show();
@@ -82,7 +80,7 @@ Round.prototype = {
   },
 
   gameOver: function() {
-    $("p").eq(0).text("There are no more words left to play.");
+    $p.eq(0).text("There are no more words left to play.");
     $("body").addClass("game_over");
     $("#images").prepend("<img src='images/tree_of_dead_hopes.png' id='dead_tree'>");
     $("#dead_tree").fadeIn(1000);
@@ -96,13 +94,13 @@ Round.prototype = {
 function Round() {
   this.guesses = 0;
   this.correct_letters = [];
-  this.word = getWord.call(this);
+  this.word = getWord.call();
 
   if (this.word === undefined) { this.gameOver(); return; }
 
   this.createBlanks();
 
-  $(document).on("keypress", this.processGuess.bind(this));
+  $(document).on("keypress.game", this.processGuess.bind(this));
 }
 
 function getWord() {
@@ -110,6 +108,10 @@ function getWord() {
   var idx = Math.floor(Math.random() * words.length);
   var new_word = words.splice(idx, 1)[0];
   return new_word;
+}
+
+function invalidLetter(charCode) {
+  return charCode > 122 || charCode < 97;
 }
 
 $("a").on("click", function(e) {
@@ -120,7 +122,7 @@ $("a").on("click", function(e) {
 });
 
 function startRound() {
-  $(document).unbind();
+  $(document).off("keypress.game");
   $("span").remove();
   $("body").removeClass();
   $("p").eq(0).text("");
